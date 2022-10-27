@@ -57,7 +57,7 @@ class _MyAppState extends ConsumerState<MyApp> {
               title: 'Reddit Clone',
               theme: Pallete.darkModeAppTheme,
             ),
-        error: (error, stackTrace) => ErrorText(error: error.toString()),
+        error: (error, stackTrace) => ErrorText(error: error.toString(),),
         loading: () => const Loader());
   }
 }
