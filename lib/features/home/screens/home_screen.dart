@@ -14,7 +14,7 @@ class HomemScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider)!;
     return Scaffold(
-      drawer: const CommunityList(),
+      drawer: const CommunityListDrawer(),
       appBar: AppBar(
         title: const Text('Home'),
         centerTitle: true,
