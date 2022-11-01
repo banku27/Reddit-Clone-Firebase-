@@ -32,7 +32,6 @@ class CommunityRepository {
     }
   }
 
-// only those communities in which user is enrolled
   Stream<List<Community>> getUserCommunities(String uid) {
     return _communities
         .where('members', arrayContains: uid)
@@ -44,6 +43,11 @@ class CommunityRepository {
       }
       return communities;
     });
+  }
+
+  Stream<Community> getCommunityByName(String name) {
+    return _communities.doc(name).snapshots().map(
+        (event) => Community.fromMap(event.data() as Map<String, dynamic>));
   }
 
   CollectionReference get _communities =>
