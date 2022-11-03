@@ -44,3 +44,43 @@ class Pallete {
     backgroundColor: whiteColor,
   );
 }
+
+// class ThemeNotifier extends StateNotifier<ThemeData> {
+//   ThemeMode _mode;
+//   ThemeNotifier({ThemeMode mode = ThemeMode.dark})
+//       : _mode = mode,
+//         super(
+//           Pallete.darkModeAppTheme,
+//         ) {
+//     getTheme();
+//   }
+
+  // ThemeMode get mode => _mode;
+
+  // void getTheme() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final theme = prefs.getString('theme');
+
+  //   if (theme == 'light') {
+  //     _mode = ThemeMode.light;
+  //     state = Pallete.lightModeAppTheme;
+  //   } else {
+  //     _mode = ThemeMode.dark;
+  //     state = Pallete.darkModeAppTheme;
+  //   }
+  // }
+
+  // void toggleTheme() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  //   if (_mode == ThemeMode.dark) {
+  //     _mode = ThemeMode.light;
+  //     state = Pallete.lightModeAppTheme;
+  //     prefs.setString('theme', 'light');
+  //   } else {
+  //     _mode = ThemeMode.dark;
+  //     state = Pallete.darkModeAppTheme;
+  //     prefs.setString('theme', 'dark');
+  //   }
+  // }
+// }
