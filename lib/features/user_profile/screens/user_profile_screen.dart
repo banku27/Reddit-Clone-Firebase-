@@ -31,17 +31,35 @@ class UserProfileScreen extends ConsumerWidget {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          OutlinedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                          Container(
+                            alignment: Alignment.bottomLeft,
+                            padding:
+                                const EdgeInsets.all(20).copyWith(bottom: 70),
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                user.profilePic,
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 25,
-                              ),
+                              radius: 35,
                             ),
-                            onPressed: () {},
-                            child: const Text('Edit Profile'),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomLeft,
+                            padding: const EdgeInsets.all(20),
+                            child: OutlinedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 25,
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: const Text('Edit Profile'),
+                            ),
                           ),
                         ],
                       ),
@@ -51,18 +69,6 @@ class UserProfileScreen extends ConsumerWidget {
                       sliver: SliverList(
                         delegate: SliverChildListDelegate(
                           [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  user.profilePic,
-                                ),
-                                radius: 35,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -76,7 +82,7 @@ class UserProfileScreen extends ConsumerWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
-                              child: Text('${user.karma} members'),
+                              child: Text('${user.karma} karma'),
                             ),
                             const SizedBox(
                               height: 10,
