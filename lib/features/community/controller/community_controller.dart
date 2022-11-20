@@ -104,6 +104,7 @@ class CommunityController extends StateNotifier<bool> {
     required BuildContext context,
     required Community community,
   }) async {
+    state = true;
     if (profileFile != null) {
       //communities/profile/memes
       final res = await _storageRepository.storeFile(
