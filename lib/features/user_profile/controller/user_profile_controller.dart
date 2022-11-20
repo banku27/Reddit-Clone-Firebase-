@@ -10,6 +10,16 @@ import 'package:routemaster/routemaster.dart';
 import '../../../core/providers/storage_repository_provider.dart';
 import '../../../core/utils.dart';
 
+final userProfileControllerProvider =
+    StateNotifierProvider<UserProfileController, bool>((ref) {
+  final userProfileRepository = ref.watch(userProfileRepositoryProvider);
+  final storageRepository = ref.watch(storageRepositoryProvider);
+  return UserProfileController(
+      userProfileRepository: userProfileRepository,
+      ref: ref,
+      storageRepository: storageRepository);
+});
+
 class UserProfileController extends StateNotifier<bool> {
   final UserProfileRepository _userProfileRepository;
   final Ref _ref;
