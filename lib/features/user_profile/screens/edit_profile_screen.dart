@@ -27,6 +27,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   File? bannerFile;
   File? profileFile;
   late TextEditingController nameController;
+
   void selectBannerImage() async {
     final result = await pickImage();
     if (result != null) {
