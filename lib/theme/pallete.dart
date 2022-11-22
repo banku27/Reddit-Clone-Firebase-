@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final themeNotifierProvider =
+    StateNotifierProvider<ThemeNotifier, ThemeData>((ref) {
+  return ThemeNotifier();
+});
+
 class Pallete {
   // Colors
   static const blackColor = Color.fromRGBO(1, 1, 1, 1); // primary color

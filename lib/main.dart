@@ -55,9 +55,11 @@ class _MyAppState extends ConsumerState<MyApp> {
               routeInformationParser: const RoutemasterParser(),
               debugShowCheckedModeBanner: false,
               title: 'Reddit Clone',
-              theme: Pallete.darkModeAppTheme,
+              theme: ref.watch(themeNotifierProvider),
             ),
-        error: (error, stackTrace) => ErrorText(error: error.toString(),),
+        error: (error, stackTrace) => ErrorText(
+              error: error.toString(),
+            ),
         loading: () => const Loader());
   }
 }
