@@ -12,6 +12,16 @@ import 'package:uuid/uuid.dart';
 
 import '../../../core/providers/storage_repository_provider.dart';
 
+final postControllerProvider =
+    StateNotifierProvider<PostController, bool>((ref) {
+  final postRepository = ref.watch(postRepositoryProvider);
+  final storageRepository = ref.watch(storageRepositoryProvider);
+  return PostController(
+      postRepository: postRepository,
+      ref: ref,
+      storageRepository: storageRepository);
+});
+
 class PostController extends StateNotifier<bool> {
   final PostRepository _postRepository;
   final Ref _ref;
