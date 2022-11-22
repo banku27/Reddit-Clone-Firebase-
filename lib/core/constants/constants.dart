@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:reddit_clone/features/feed/screens/feed_screen.dart';
+
+import '../../features/post/screens/add_post_screen.dart';
 
 class Constants {
   static const logoPath = 'assets/images/logo.png';
@@ -10,10 +13,10 @@ class Constants {
   static const avatarDefault =
       'https://external-preview.redd.it/5kh5OreeLd85QsqYO1Xz_4XSLYwZntfjqou-8fyBFoE.png?auto=webp&s=dbdabd04c399ce9c761ff899f5d38656d1de87c2';
 
-  // static const tabWidgets = [
-  //   FeedScreen(),
-  //   AddPostScreen(),
-  // ];
+  static const tabWidgets = [
+    FeedScreen(),
+    AddPostScreen(),
+  ];
 
   static const IconData up =
       IconData(0xe800, fontFamily: 'MyFlutterApp', fontPackage: null);
