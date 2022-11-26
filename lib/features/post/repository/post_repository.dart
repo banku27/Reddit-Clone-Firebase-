@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:reddit_clone/core/constants/firebase_constants.dart';
 import 'package:reddit_clone/core/providers/firebase_providers.dart';
+import 'package:reddit_clone/models/community_model.dart';
 import 'package:reddit_clone/models/post_model.dart';
 
 import '../../../core/failure.dart';
@@ -31,5 +32,20 @@ class PostRepository {
         Failure(e.toString()),
       );
     }
+  }
+
+  Stream<List<Post>> fetchUsersPost(List<Community> communities) {
+    return _posts
+        .where('communityName',
+            whereIn: communities.map((e) => e.name).toList())
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map((e) => Post.fromMap(
+                    e.data() as Map<String, dynamic>,
+                  ))
+              .toList(),
+        );
   }
 }
