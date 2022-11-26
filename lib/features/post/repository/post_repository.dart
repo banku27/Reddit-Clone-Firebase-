@@ -5,7 +5,6 @@ import 'package:reddit_clone/core/constants/firebase_constants.dart';
 import 'package:reddit_clone/core/providers/firebase_providers.dart';
 import 'package:reddit_clone/models/community_model.dart';
 import 'package:reddit_clone/models/post_model.dart';
-
 import '../../../core/failure.dart';
 import '../../../core/type_def.dart';
 

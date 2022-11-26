@@ -1,8 +1,7 @@
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:reddit_clone/core/constants/constants.dart';
 import 'package:reddit_clone/features/auth/controller/auth_controller.dart';
-
 import 'package:reddit_clone/models/post_model.dart';
 import 'package:reddit_clone/theme/pallete.dart';
 
@@ -101,6 +100,37 @@ class PostCard extends ConsumerWidget {
                               ),
                             ),
                           ),
+                          if (isTypeImage)
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.35,
+                              width: double.infinity,
+                              child: Image.network(
+                                post.link!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          if (isTypeLink)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18),
+                              child: AnyLinkPreview(
+                                displayDirection:
+                                    UIDirection.uiDirectionHorizontal,
+                                link: post.link!,
+                              ),
+                            ),
+                          if (isTypeText)
+                            Container(
+                              alignment: Alignment.bottomLeft,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Text(
+                                post.description!,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),
