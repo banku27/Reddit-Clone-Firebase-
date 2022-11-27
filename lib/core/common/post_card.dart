@@ -133,6 +133,7 @@ class PostCard extends ConsumerWidget {
                               ),
                             ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
@@ -159,9 +160,23 @@ class PostCard extends ConsumerWidget {
                                     color: post.downvotes.contains(user.uid)
                                         ? Pallete.blueColor
                                         : null,
-                                  )
+                                  ),
                                 ],
-                              )
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.comment,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${post.commentCount == 0 ? 'Comment' : post.commentCount}',
+                                    style: const TextStyle(fontSize: 17),
+                                  ),
+                                ],
+                              ),
                             ],
                           )
                         ],
