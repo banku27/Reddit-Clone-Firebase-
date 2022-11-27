@@ -59,4 +59,21 @@ class PostRepository {
       );
     }
   }
+
+  void upvote(Post post, String userId) {
+    if (post.downvotes.contains(userId)) {
+      _posts.doc(post.id).update({
+        'downvotes': FieldValue.arrayRemove([userId]),
+      });
+    }
+    if (post.upvotes.contains(userId)) {
+      _posts.doc(post.id).update({
+        'upvotes': FieldValue.arrayRemove([userId]),
+      });
+    } else {
+      _posts.doc(post.id).update({
+        'upvotes': FieldValue.arrayUnion([userId]),
+      });
+    }
+  }
 }
