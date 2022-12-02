@@ -12,6 +12,8 @@ import 'package:reddit_clone/features/community/repository/community_repository.
 import 'package:reddit_clone/models/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
+import '../../../models/post_model.dart';
+
 final userCommunitiesProvider = StreamProvider((ref) {
   final communityController = ref.watch(communityControllerProvider.notifier);
   return communityController.getUserCommunities();
@@ -35,6 +37,13 @@ final getCommunityByNameProvider = StreamProvider.family((ref, String name) {
 
 final searchCommunityProvider = StreamProvider.family((ref, String query) {
   return ref.watch(communityControllerProvider.notifier).searchCommunity(query);
+});
+
+final getCommunityPostsProvider =
+    StreamProvider.family((ref, String communityName) {
+  return ref
+      .read(communityControllerProvider.notifier)
+      .getCommunityPosts(communityName);
 });
 
 class CommunityController extends StateNotifier<bool> {
@@ -143,5 +152,9 @@ class CommunityController extends StateNotifier<bool> {
 
   Stream<List<Community>> searchCommunity(String query) {
     return _communityRepository.searchCommunity(query);
+  }
+
+  Stream<List<Post>> getCommunityPosts(String communityName) {
+    return _communityRepository.getCommunityPosts(communityName);
   }
 }
