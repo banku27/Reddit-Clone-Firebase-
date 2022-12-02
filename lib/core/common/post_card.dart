@@ -1,8 +1,11 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:reddit_clone/core/common/error_text.dart';
+import 'package:reddit_clone/core/common/loader.dart';
 import 'package:reddit_clone/core/constants/constants.dart';
 import 'package:reddit_clone/features/auth/controller/auth_controller.dart';
+import 'package:reddit_clone/features/community/controller/community_controller.dart';
 import 'package:reddit_clone/features/post/controller/post_controller.dart';
 import 'package:reddit_clone/models/post_model.dart';
 import 'package:reddit_clone/theme/pallete.dart';
@@ -190,6 +193,28 @@ class PostCard extends ConsumerWidget {
                                   ),
                                 ],
                               ),
+                              ref
+                                  .watch(getCommunityByNameProvider(
+                                      post.communityName))
+                                  .when(
+                                    data: (data) {
+                                      if (data.mods.contains(user.uid)) {
+                                        return IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.admin_panel_settings,
+                                          ),
+                                        );
+                                      }
+                                      return const SizedBox();
+                                    },
+                                    error: (error, stackTrace) {
+                                      return ErrorText(
+                                        error: error.toString(),
+                                      );
+                                    },
+                                    loading: () => const Loader(),
+                                  ),
                             ],
                           )
                         ],
