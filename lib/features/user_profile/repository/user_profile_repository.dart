@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:reddit_clone/core/constants/firebase_constants.dart';
 import 'package:reddit_clone/core/type_def.dart';
+import 'package:reddit_clone/features/post/controller/post_controller.dart';
+import 'package:reddit_clone/models/post_model.dart';
 import 'package:reddit_clone/models/user_model.dart';
 
 import '../../../core/failure.dart';
@@ -20,6 +22,8 @@ class UserProfileRepository {
 
   CollectionReference get _users =>
       _firestore.collection(FirebaseConstants.usersCollection);
+  CollectionReference get _posts =>
+      _firestore.collection(FirebaseConstants.postsCollection);
 
   FutureVoid editCommunity(UserModel user) async {
     try {
@@ -33,5 +37,15 @@ class UserProfileRepository {
         ),
       );
     }
+  }
+
+  Stream<List<Post>> getUserPosts(String uid) {
+    return _posts
+        .where('uid', isEqualTo: uid)
+        .orderBy('creadtedAt', descending: true)
+        .snapshots()
+        .map((event) => event.docs
+            .map((e) => Post.fromMap(e.data() as Map<String, dynamic>))
+            .toList());
   }
 }
