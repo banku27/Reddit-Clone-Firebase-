@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:reddit_clone/core/constants/firebase_constants.dart';
 import 'package:reddit_clone/core/providers/firebase_providers.dart';
+import 'package:reddit_clone/features/post/controller/post_controller.dart';
 import 'package:reddit_clone/models/community_model.dart';
 import 'package:reddit_clone/models/post_model.dart';
 import '../../../core/failure.dart';
@@ -10,6 +11,11 @@ import '../../../core/type_def.dart';
 
 final postRepositoryProvider = Provider((ref) {
   return PostRepository(firestore: ref.watch(firestoreProvider));
+});
+
+final getPostByIdProvider = StreamProvider.family((ref, String postId) {
+  final postController = ref.watch(postControllerProvider.notifier);
+  return postController.getPostById(postId);
 });
 
 class PostRepository {
@@ -93,5 +99,12 @@ class PostRepository {
         'downvotes': FieldValue.arrayUnion([userId]),
       });
     }
+  }
+
+  Stream<Post> getPostById(String postId) {
+    return _posts
+        .doc(postId)
+        .snapshots()
+        .map((event) => Post.fromMap(event.data() as Map<String, dynamic>));
   }
 }

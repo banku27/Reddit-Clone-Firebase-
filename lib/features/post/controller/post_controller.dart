@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit_clone/core/utils.dart';
@@ -9,7 +8,6 @@ import 'package:reddit_clone/models/community_model.dart';
 import 'package:reddit_clone/models/post_model.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../core/providers/storage_repository_provider.dart';
 
 final postControllerProvider =
@@ -20,6 +18,11 @@ final postControllerProvider =
       postRepository: postRepository,
       ref: ref,
       storageRepository: storageRepository);
+});
+
+final getPostByIdProvider = StreamProvider.family((ref, String postId) {
+  final postController = ref.watch(postControllerProvider.notifier);
+  return postController.getPostById(postId);
 });
 
 final userPostsProvider =
@@ -137,7 +140,7 @@ class PostController extends StateNotifier<bool> {
         link: r,
       );
       final res = await _postRepository.addPost(post);
-      state = false;
+      // state = false;
       res.fold((l) => showSnackBar(context, l.message), (r) {
         showSnackBar(context, 'Posted successfully!!');
         Routemaster.of(context).pop();
@@ -166,5 +169,9 @@ class PostController extends StateNotifier<bool> {
   void downvote(Post post) async {
     final uid = _ref.read(userProvider)!.uid;
     _postRepository.downvote(post, uid);
+  }
+
+  Stream<Post> getPostById(String postId) {
+    return _postRepository.getPostById(postId);
   }
 }
