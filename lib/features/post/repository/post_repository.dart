@@ -26,6 +26,8 @@ class PostRepository {
 
   CollectionReference get _posts =>
       _firestore.collection(FirebaseConstants.postsCollection);
+  CollectionReference get _comments =>
+      _firestore.collection(FirebaseConstants.commentsCollection);
 
   FutureVoid addPost(Post post) async {
     try {
