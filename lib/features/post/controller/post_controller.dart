@@ -9,6 +9,7 @@ import 'package:reddit_clone/models/post_model.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/providers/storage_repository_provider.dart';
+import '../../../models/comments_model.dart';
 
 final postControllerProvider =
     StateNotifierProvider<PostController, bool>((ref) {
@@ -173,5 +174,27 @@ class PostController extends StateNotifier<bool> {
 
   Stream<Post> getPostById(String postId) {
     return _postRepository.getPostById(postId);
+  }
+
+  void addComment({
+    required BuildContext context,
+    required String text,
+    required Post post,
+  }) async {
+    final user = _ref.read(userProvider)!;
+    String commentId = const Uuid().v1();
+    Comment comment = Comment(
+      id: commentId,
+      text: text,
+      createdAt: DateTime.now(),
+      postId: post.id,
+      username: user.name,
+      profilePic: user.profilePic,
+    );
+    final res = await _postRepository.addComment(comment);
+    // _ref
+    //     .read(userProfileControllerProvider.notifier)
+    //     .updateUserKarma(UserKarma.comment);
+    res.fold((l) => showSnackBar(context, l.message), (r) => null);
   }
 }
