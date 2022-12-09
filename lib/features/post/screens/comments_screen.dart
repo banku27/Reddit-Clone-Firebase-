@@ -4,6 +4,7 @@ import 'package:reddit_clone/core/common/error_text.dart';
 import 'package:reddit_clone/core/common/loader.dart';
 import 'package:reddit_clone/core/common/post_card.dart';
 import 'package:reddit_clone/features/post/controller/post_controller.dart';
+import 'package:reddit_clone/features/post/widgets/comment_card.dart';
 import 'package:reddit_clone/models/post_model.dart';
 
 class CommentsScreen extends ConsumerStatefulWidget {
@@ -43,7 +44,7 @@ class CommentsScreenState extends ConsumerState<CommentsScreen> {
       appBar: AppBar(),
       body: ref.watch(getPostByIdProvider(widget.postId)).when(
             data: (data) {
-              Column(
+              return Column(
                 children: [
                   PostCard(post: data),
                   TextField(
@@ -55,6 +56,26 @@ class CommentsScreenState extends ConsumerState<CommentsScreen> {
                       border: InputBorder.none,
                     ),
                   ),
+                  ref.watch(getPostCommentsProvider(widget.postId)).when(
+                        data: (data) {
+                          return Expanded(
+                            child: ListView.builder(
+                              itemCount: data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final comment = data[index];
+                                return CommentCard(comment: comment);
+                              },
+                            ),
+                          );
+                        },
+                        error: (error, stackTrace) {
+                          // print(error.toString());
+                          return ErrorText(
+                            error: error.toString(),
+                          );
+                        },
+                        loading: () => const Loader(),
+                      ),
                 ],
               );
             },
