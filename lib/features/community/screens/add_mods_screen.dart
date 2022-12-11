@@ -52,7 +52,7 @@ class _AddModsScreenState extends ConsumerState<AddModsScreen> {
                   itemCount: community.members.length,
                   itemBuilder: (BuildContext context, int index) {
                     final member = community.members[index];
-                    return ref.watch(getuserDataProvider(member)).when(
+                    return ref.watch(getUserDataProvider(member)).when(
                           data: (user) {
                             if (community.mods.contains(member) && ctr == 0) {
                               uids.add(member);

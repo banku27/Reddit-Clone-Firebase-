@@ -70,7 +70,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   Widget build(BuildContext context) {
     final isLoading = ref.watch(userProfileControllerProvider);
     final currentTheme = ref.watch(themeNotifierProvider);
-    return ref.watch(getuserDataProvider(widget.uid)).when(
+    return ref.watch(getUserDataProvider(widget.uid)).when(
           data: (user) {
             return Scaffold(
               backgroundColor: currentTheme.backgroundColor,

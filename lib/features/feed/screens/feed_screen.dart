@@ -15,15 +15,18 @@ class FeedScreen extends ConsumerWidget {
           data: (communities) => ref.watch(userPostsProvider(communities)).when(
                 data: (data) {
                   return ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        final post = data[index];
-                        return PostCard(post: post);
-                      });
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final post = data[index];
+                      return PostCard(post: post);
+                    },
+                  );
                 },
-                error: (error, stackTrace) => ErrorText(
-                  error: error.toString(),
-                ),
+                error: (error, stackTrace) {
+                  return ErrorText(
+                    error: error.toString(),
+                  );
+                },
                 loading: () => const Loader(),
               ),
           error: (error, stackTrace) => ErrorText(
@@ -32,4 +35,27 @@ class FeedScreen extends ConsumerWidget {
           loading: () => const Loader(),
         );
   }
+  // return ref.watch(userCommunitiesProvider).when(
+  //       data: (communities) => ref.watch(guestPostsProvider).when(
+  //             data: (data) {
+  //               return ListView.builder(
+  //                 itemCount: data.length,
+  //                 itemBuilder: (BuildContext context, int index) {
+  //                   final post = data[index];
+  //                   return PostCard(post: post);
+  //                 },
+  //               );
+  //             },
+  //             error: (error, stackTrace) {
+  //               return ErrorText(
+  //                 error: error.toString(),
+  //               );
+  //             },
+  //             loading: () => const Loader(),
+  //           ),
+  //       error: (error, stackTrace) => ErrorText(
+  //         error: error.toString(),
+  //       ),
+  //       loading: () => const Loader(),
+  //     );
 }
