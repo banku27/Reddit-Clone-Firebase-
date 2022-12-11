@@ -56,7 +56,7 @@ class PostCard extends ConsumerWidget {
     final currentTheme = ref.watch(themeNotifierProvider);
     final user = ref.watch(userProvider);
 
-    final isGuest = user!.isAuthenticated;
+    final isGuest = !user!.isAuthenticated;
     return Column(
       children: [
         Container(

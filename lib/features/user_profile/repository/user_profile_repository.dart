@@ -41,12 +41,14 @@ class UserProfileRepository {
   Stream<List<Post>> getUserPosts(String uid) {
     return _posts
         .where('uid', isEqualTo: uid)
-        .orderBy('creadtedAt', descending: true)
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map(
           (event) => event.docs
               .map(
-                (e) => Post.fromMap(e.data() as Map<String, dynamic>),
+                (e) => Post.fromMap(
+                  e.data() as Map<String, dynamic>,
+                ),
               )
               .toList(),
         );
